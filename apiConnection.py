@@ -11,11 +11,11 @@ def getUserByPuuid(PUUID):
     response = response.json()
     return(response)
 def getAllMatches(PUUID):
-    response= requests.get("https://{api}/tft/match/v1/matches/by-puuid/{puuid}?api_key={apiKey}".format(api=apiURL,puuid=PUUID, apiKey=keys.developmentApiKey))
+    response= requests.get("https://europe.api.riotgames.com/tft/match/v1/matches/by-puuid/{puuid}/ids?count=5&api_key={apiKey}".format(puuid=PUUID, apiKey=keys.developmentApiKey))
     response = response.json()
     return(response)
 def getMatchById(matchID):
-    response= requests.get("https://{api}/tft/match/v1/matches/{matchID}?api_key={apiKey}".format(api=apiURL,matchID=matchID, apiKey=keys.developmentApiKey))
+    response= requests.get("https://europe.api.riotgames.com/tft/match/v1/matches/{matchID}?api_key={apiKey}".format(matchID=matchID, apiKey=keys.developmentApiKey))
     response = response.json()
     return(response)
 def getRank(summID):
