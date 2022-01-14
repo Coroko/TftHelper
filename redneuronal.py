@@ -14,25 +14,32 @@ def dataset_creation():
     round=[]
     placement=[]
     time=[]
-
-    
+    units=[]
     cur.execute('''CREATE TABLE IF NOT EXISTS DATASET ( ronda       int
                                                         ,pos        int
                                                         ,tiempo     float)''')
-    cur.execute('''SELECT PUUID FROM GAMES ''')
-    for puuid in cur.fetchall():
-        cur.execute('''SELECT placement from Games where PUUID = "{puuid}" '''.format(puuid=player))  
+    cur.execute('''SELECT game_hash FROM GAMES ''')
+    for game_hash in cur.fetchall():
+        temp_unit=[]
+        game_hash=game_hash[0]
+        cur.execute('''SELECT placement from Games where game_hash = "{game_hash}" '''.format(game_hash=game_hash))  
         for data in cur.fetchall():
             placement.append(data[0])
-        cur.execute('''SELECT last_round from Games where PUUID = "{puuid}" '''.format(puuid=player))  
+        cur.execute('''SELECT last_round from Games where game_hash = "{game_hash}" '''.format(game_hash=game_hash))  
         for data in cur.fetchall():
             round.append(data[0])
-        cur.execute('''SELECT time_eliminated from Games where PUUID = "{puuid}" '''.format(puuid=player))  
+        cur.execute('''SELECT time_eliminated from Games where game_hash = "{game_hash}" '''.format(game_hash=game_hash))  
         for data in cur.fetchall():
             time.append(data[0])
+        cur.execute('''SELECT unit_name from units where game_hash = "{game_hash}" '''.format(game_hash=game_hash))  
+        for data in cur.fetchall():
+          temp_unit.append(data[0]) 
+        units.append(temp_unit)
+        temp_unit.clear()
     print(time)
     print(placement)
     print(round)
+    print(units)
  
         
 
