@@ -17,7 +17,7 @@ def getUserByPuuid(PUUID):
     response = response.json()
     return(response)
 def getAllMatches(PUUID):
-    response= requests.get("https://europe.api.riotgames.com/tft/match/v1/matches/by-puuid/{puuid}/ids?count=4&api_key={apiKey}".format(puuid=PUUID, apiKey=keys.developmentApiKey))
+    response= requests.get("https://europe.api.riotgames.com/tft/match/v1/matches/by-puuid/{puuid}/ids?count=6&api_key={apiKey}".format(puuid=PUUID, apiKey=keys.developmentApiKey))
     print("Sleeping for 2 seconds...")
     time.sleep(2)
     response = response.json()

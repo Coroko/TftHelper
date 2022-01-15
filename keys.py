@@ -1,1 +1,1 @@
-developmentApiKey= "RGAPI-e85ebdd0-b3f4-4be7-a273-9b5ad3ae360c"
+developmentApiKey= "RGAPI-3722c76a-89f8-47da-8fcf-55a7de1bf125"

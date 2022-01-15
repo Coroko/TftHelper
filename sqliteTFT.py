@@ -1,5 +1,7 @@
 import sqlite3
 import hashlib
+import apiConnection as api
+
 def start_db():
     print("Iniciando base de datos...")
     con = sqlite3.connect('tft.sqlite')
@@ -42,7 +44,7 @@ def openConnection():
     print("Conexion abierta")
     return(con)
 def closeConnection(cur):
-    print("Conexion cerrado")
+    print("Conexion cerrada")
     cur.close()
     
 def insertIntoTablePlayers(cur,data):
@@ -66,7 +68,6 @@ def insertIntoTableGames(cur,data,game_hash,match_id):
                                                                             ,hash=game_hash
                                                                             ))
 def insertIntoTableUnits(cur,data,game_hash,puuid):
-    print("Anadiendo unidad "+data["character_id"]+" de (puuid): "+puuid)
     cur.execute('''INSERT INTO UNITS VALUES('{game_hash}','{unit_name}','{rarity}','{tier}','{items}','{player}') '''.format(game_hash=game_hash
                                                                                                   ,unit_name=data['character_id']
                                                                                                   ,rarity=data['rarity']
@@ -74,7 +75,6 @@ def insertIntoTableUnits(cur,data,game_hash,puuid):
                                                                                                   ,items=data ['items'],
                                                                                                   player= puuid))
 def insertIntoTableTraits(cur,data,game_hash,puuid):
-    print("Anadiendo trait "+data["name"]+" de (puuid): "+puuid)
     cur.execute('''INSERT INTO TRAITS VALUES('{game_hash}','{trait_name}','{num_unit}','{style}','{tier_Current}','{tier_total}','{player}') '''.format(game_hash=game_hash,
                                                                                                                                 trait_name=data['name'],
                                                                                                                                 num_unit=data['num_units'],
@@ -87,6 +87,33 @@ def createGameHash(puuid,game_id):
     return (game_hash)
 
 def insertIntoTableDataSet(cur,ronda,pos,tiempo,personajes):
-    print("Anadiendo informacion al dataset")
     cur.execute('''INSERT INTO DATASET VALUES('{ronda}','{pos}','{tiempo}','{personajes}') '''.format(ronda=ronda,pos=pos,tiempo=tiempo,personajes=personajes))
-                                         
+    
+def populate_db():
+    start_db()
+    conexion=openConnection()
+    cur= conexion.cursor()
+    user= ["Corokoo","Undefined CEO","aidennnnn","harry32xd","covilla 19","CazadorDeMinitas","infernixx","ReventXz v2",
+           "SNG Lev Trotskij","Lorus","AGO Lelouch","simplyw0jtek","ArmaTruc","BALOTELLI777","OGiii"] #jugadores analizar
+    for name in user :
+        data=api.getUser(name)
+        insertIntoTablePlayers(cur,data)
+    cur.execute('''select puuid from players''') #Una vez añadidos para no hacer tantas llamadas a la api, cojemos los puuid del sqlite
+    for row in cur.fetchall():
+        puuidofplayer = ''.join(row)
+        data=api.getAllMatches(puuidofplayer)
+        for matchid in data : #Obtenidas todas las partidas, procederemos a sacar todos los puntos importantes de ellas
+            gamedata=api.getMatchById(matchid)
+            for participant in gamedata["info"]["participants"]: 
+                puuid=participant["puuid"]
+                game_hash=createGameHash(puuid,matchid)
+                insertIntoTableGames(cur,participant,game_hash,matchid)
+                for units in participant["units"]:
+                    insertIntoTableUnits(cur,units,game_hash,puuid)
+                for traits in participant["traits"]:
+                    insertIntoTableTraits(cur,traits,game_hash,puuid)
+                #tras haber hecho esto obtrendemos una base de datos bastante consolidada, con un total entre todas
+                #sus filas al rededor de los 3000 datos, y esto solo con 5 jugadores y 4 partidas con cada uno.
+    closeConnection(cur)
+    conexion.commit()
+    
