@@ -17,7 +17,8 @@ def dataset_creation():
     units=[]
     cur.execute('''CREATE TABLE IF NOT EXISTS DATASET ( ronda       int
                                                         ,pos        int
-                                                        ,tiempo     float)''')
+                                                        ,tiempo     float
+                                                        ,units      varchar)''')
     cur.execute('''SELECT game_hash FROM GAMES ''')
     for game_hash in cur.fetchall():
         temp_unit=[]
@@ -36,12 +37,16 @@ def dataset_creation():
           temp_unit.append(data[0]) 
         units.append(temp_unit)
         temp_unit.clear()
-    print(time)
-    print(placement)
-    print(round)
-    print(units)
- 
-        
+    for index in range(len(units)):
+        sql.insertIntoTableDataSet(cur,round[index],placement[index],time[index],units[index])
+
+def preprocess():
+    a=0
+def createmodel():
+    inputA = keras.Input()
+    inputB = keras.Input()
+    inputC = keras.Input()
+    inputD = keras.Input()
 
 
 dataset_creation()

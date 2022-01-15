@@ -86,7 +86,7 @@ def createGameHash(puuid,game_id):
     game_hash =hashlib.sha256(puuid.encode()+game_id.encode()).hexdigest()
     return (game_hash)
 
-def insertIntoTableDataSet(cur,ronda,pos,tiempo,personajes,traits):
+def insertIntoTableDataSet(cur,ronda,pos,tiempo,personajes):
     print("Anadiendo informacion al dataset")
-    cur.execute('''INSERT INTO DATASET VALUES('{ronda}','{pos}','{tiempo}','{personajes}','{traits}') '''.format(ronda=ronda,pos=pos,tiempo=tiempo,personajes=personajes,traits=traits))
+    cur.execute('''INSERT INTO DATASET VALUES('{ronda}','{pos}','{tiempo}','{personajes}') '''.format(ronda=ronda,pos=pos,tiempo=tiempo,personajes=personajes))
                                          
