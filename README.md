@@ -14,21 +14,20 @@ Para iniciar esta aplicacion solo hace falta correr el main como un script de py
 
 ## 1. Recogida de informacion:
 
-    Esta parte se encarga el archivo ./apiConnection.py, en el tengo las siguientes funciones:
+Esta parte se encarga el archivo ./apiConnection.py, en el tengo las siguientes funciones:
     
     def getUser(name):
-        Esta se encarga de que yo al pasarle cualquier id(Europea) de un jugador me devuelva datos importantes como el PUUID, el cual es una clave unica que tiene cada jugador y que permite que haga busquedas dentro de la api.
+Esta se encarga de que yo al pasarle cualquier id(Europea) de un jugador me devuelva datos importantes como el PUUID, el cual es una clave unica que tiene cada jugador y que permite que haga busquedas dentro de la api.
     def getUserByPuuid(PUUID):
-        A esta le dare uso mas adelanta ya que hace lo contrario a la anterior.
+A esta le dare uso mas adelanta ya que hace lo contrario a la anterior.
     def getAllMatches(PUUID):
-        Para conseguir los datos de todas las partidas primero he de buscar su id el cual consiguo aqui, en esta tuve que limitar las partidas por reglas de rate de la api.
+Para conseguir los datos de todas las partidas primero he de buscar su id el cual consiguo aqui, en esta tuve que limitar las partidas por reglas de rate de la api.
     def getMatchById(matchID):
-        Esta es la funcion mas importante de recogida de informacion, ya que gracias a ella puedo conseguir los json con toda la informacion de la partida.
+Esta es la funcion mas importante de recogida de informacion, ya que gracias a ella puedo conseguir los json con toda la informacion de la partida.
     def getRank(summID):
-        Al igual que getUserByPuuid(PUUID) esta la usare mas adelante.
+Al igual que getUserByPuuid(PUUID) esta la usare mas adelante.
 
 ## 2. Almacenaje de la informacion en una base de datos SQLite:
-
-    Para no hacer tantas llamadas a la API y no pasarme del limite he construido una base de datos la cual tiene la siguiente forma
-    ![bd](./assets/bbdd.png)
+Para no hacer tantas llamadas a la API y no pasarme del limite he construido una base de datos la cual tiene la siguiente forma
+![bd](./assets/bbdd.png)
     
