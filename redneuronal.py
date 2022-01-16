@@ -52,12 +52,10 @@ def model(preprocessing_head, inputs):
     body = tf.keras.Sequential([
     
     layers.Dense(32,activation='relu'),
-    layers.Dense(20,activation='relu'),
-    layers.Dense(10, activation='relu'),
-    layers.Dense(8, activation='relu'),
-    layers.Dense(5, activation='sigmoid'),
-    layers.Dense(3, activation='sigmoid'),
-    layers.Dense(1)
+    layers.Dense(15,activation='relu'),
+    layers.Dense(9, activation='relu'),
+    layers.Dense(5, activation='relu'),
+    layers.Dense(1,activation='sigmoid')
     ])
     preprocessed_inputs = preprocessing_head(inputs)
     result = body(preprocessed_inputs)
@@ -104,5 +102,5 @@ def create_model():
     tft_preprocessing(features_dict)
     tft_model = model(tft_preprocessing, inputs)
 
-    tft_model.fit(x=tft_features_dict, y=tft_labels, epochs=10)#para la cantidad de datos que tenemos estos epoch seran suficientes.
+    tft_model.fit(x=tft_features_dict, y=tft_labels, epochs=100)#para la cantidad de datos que tenemos estos epoch seran suficientes.
     return tft_model
