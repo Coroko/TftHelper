@@ -7,6 +7,9 @@ Esta aplicacion utiliza tensorflow para crear un modelo de ANN en base a datos r
 Todo el data set necesario para el entrenamiento se genera el solo, cogiendo datos directamente de la API de RIOT.
 
 Para iniciar esta aplicacion solo hace falta correr el main como un script de python.
+    
+    /main.py
+Y este generara el solo todos los datos que se necesiten para ejecutarse.
 
 ## Que he querido hacer con esta aplicaion:
 
@@ -32,6 +35,9 @@ Esta es la funcion mas importante de recogida de informacion, ya que gracias a e
 Al igual que getUserByPuuid(PUUID) esta la usare mas adelante.
 
 ## 2. Almacenaje de la informacion en una base de datos SQLite:
+
 Para no hacer tantas llamadas a la API y no pasarme del limite he construido una base de datos la cual tiene la siguiente forma
-    ![bd](./assets/bbdd.png)
+    
+ ![bd](./assets/bbdd.png)
+ 
     
