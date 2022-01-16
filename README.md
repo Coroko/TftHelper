@@ -95,6 +95,7 @@ Crea la tabla dataset y la puebla con datos los cuales los recoje del sqlite.
 Esta funcion es el modelo como tal, y tras mucha prueba y error es la configuracion que mejor me ha funcionado con mi estilo de datos, en ella podemos ver 5 capas de densidad las cuales son las que condensan los datos que reciben de la base de datos, en ella utilice una sigmoide en la ultima capa para que me pusiese los datos entre 1 y -1. La funcion logcosh de perdidas la he utilizado por que lo que he investigado en internet sobre ella es la que mejor se ajusta a mis datos y al estilo que tienen mis datos.
 
 Ahora pondre un ejemplo de una de mis ejecuciones:
+
     Epoch 1/10
     23/23 [==============================] - 0s 750us/step - loss: 3.3512
     Epoch 2/10
